@@ -1,0 +1,49 @@
+{
+  "name": "@everybenefits/firebase-web",
+  "version": "0.1.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./firebase-next": {
+      "types": "./firebase-next.cjs.d.ts",
+      "require": "./firebase-next.cjs",
+      "import": "./firebase-next.cjs",
+      "default": "./firebase-next.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "firebase-next.cjs",
+    "firebase-next.cjs.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@everybenefits/shared": "github:everybenefits/pulse-shared#v0.1.0",
+    "firebase-admin": "~14.4.0"
+  },
+  "peerDependencies": {
+    "firebase": "^12.0.0"
+  },
+  "devDependencies": {
+    "firebase": "^12.17.1",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/everybenefits/pulse-firebase-web.git"
+  }
+}

@@ -1,0 +1,5 @@
+allowBuilds:
+  "@firebase/util": true
+  protobufjs: true
+  "@everybenefits/shared": true
+  esbuild: true
