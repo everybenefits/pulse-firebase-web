@@ -1,6 +1,12 @@
 # @everybenefits/firebase-web
 
-Pulse shared package published to GitHub Packages as scoped `@everybenefits/*`.
+Firebase callables, mappers, and query helpers for Pulse web clients.
+
+For User / Org / Roles product operations, prefer **`@everybenefits/client`**
+(`createPulseClient`) — see ADR-014 in pulse-web. This package remains the
+transport layer (`callCloudFunction`, profile mappers, `watchRolePermissions`).
+`createAdminRepository` / `createAgencyRepository` stay available here for one
+minor version; new apps should import them from `@everybenefits/client`.
 
 ## Install
 
