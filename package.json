@@ -29,15 +29,15 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@everybenefits/shared": "github:everybenefits/pulse-shared#v0.1.0",
-    "firebase-admin": "~14.4.0"
+    "@everybenefits/shared": "github:everybenefits/pulse-shared#v0.1.5",
+    "firebase-admin": "~14.5.0"
   },
   "peerDependencies": {
     "firebase": "^12.0.0"
   },
   "devDependencies": {
-    "firebase": "^12.17.1",
-    "typescript": "^5.9.3"
+    "firebase": "^12.19.0",
+    "typescript": "^7.0.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
