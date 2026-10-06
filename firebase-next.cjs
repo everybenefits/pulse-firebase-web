@@ -1,5 +1,5 @@
 /**
- * Next.js helpers so the Firebase JS SDK keeps a single @firebase/app singleton.
+ * Next.js helpers so the Firebase JS SDK keeps a single app and Firestore runtime.
  *
  * pnpm does not hoist @firebase/app into @firebase/database (it is not a declared
  * dependency). Webpack then embeds two copies; getDatabase() throws
@@ -9,18 +9,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const FIREBASE_SERVER_EXTERNAL_PACKAGES = [
-  "firebase",
   "firebase-admin",
-  "@firebase/app",
-  "@firebase/auth",
-  "@firebase/database",
-  "@firebase/firestore",
-  "@firebase/storage",
-  "@firebase/functions",
-  "@firebase/app-check",
-  "@firebase/component",
-  "@firebase/util",
-  "@firebase/logger",
 ];
 
 function firebaseSdkNodeModules(dir) {
@@ -51,8 +40,15 @@ function firebaseResolveAliases(dir, kind) {
   /** @type {Record<string, string>} */
   const aliases = {};
   if (!sdkRoot) return aliases;
-  for (const pkg of ["@firebase/app", "@firebase/database"]) {
-    const abs = fs.realpathSync(path.join(sdkRoot, pkg));
+  // Firebase web wrappers and CJS shared packages otherwise select different
+  // Firestore export conditions. Both must use the same web SDK constructors:
+  // getFirestore() from one build is rejected by doc() from the other build.
+  for (const [pkg, entry] of [
+    ["@firebase/app", ""],
+    ["@firebase/database", ""],
+    ["@firebase/firestore", "dist/index.esm.js"],
+  ]) {
+    const abs = fs.realpathSync(path.join(sdkRoot, pkg, entry));
     if (kind === "turbopack") {
       let rel = path.relative(dir, abs).replaceAll("\\", "/");
       if (!rel.startsWith(".")) rel = `./${rel}`;
